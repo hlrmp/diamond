@@ -1,0 +1,155 @@
+import pygame
+from pygame.locals import *
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+pygame.init()
+
+display = (1280, 720)
+pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+pygame.display.set_caption("04 Performance Task 1 ")
+
+gluPerspective(45, (display[0] / display[1]), 0.1, 50.0)
+glTranslatef(0, 0, -5)
+glScalef(0.5, 0.5, 0.5)
+
+glEnable(GL_DEPTH_TEST)
+
+def draw_emerald():
+
+    glBegin(GL_TRIANGLES)
+
+    #BOTTOM PART
+    glColor(0.31, 0.78, 0.47)
+    glVertex3f(0, 0, -2)
+    glVertex3f(-1, -2, 0)
+    glVertex3f(1, -2, 0)
+
+    glVertex3f(0, 0, -2)
+    glVertex3f(1, 2, 0)
+    glVertex3f(-1, 2, 0)
+
+    glVertex3f(0, 0, -2)
+    glVertex3f(-2, 1, 0)
+    glVertex3f(-2, -1, 0)
+
+    glVertex3f(0, 0, -2)
+    glVertex3f(2, 1, 0)
+    glVertex3f(2, -1, 0)
+
+    glColor(0.155, 0.39, 0.235)
+    glVertex3f(0, 0, -2)
+    glVertex3f(1, -2, 0)
+    glVertex3f(2, -1, 0)
+
+    glVertex3f(0, 0, -2)
+    glVertex3f(-1, -2, 0)
+    glVertex3f(-2, -1, 0)
+
+    glVertex3f(0, 0, -2)
+    glVertex3f(-2, 1, 0)
+    glVertex3f(-1, 2, 0)
+    
+    glVertex3f(0, 0, -2)
+    glVertex3f(2, 1, 0)
+    glVertex3f(1, 2, 0)
+
+
+
+    #TOP PART
+    glColor(0.31, 0.78, 0.47)
+    glVertex3f(0, 0, 0.5)
+    glVertex3f(-1, 1, 0.5)
+    glVertex3f(1, 1, 0.5)
+
+    glVertex3f(0, 0, 0.5)
+    glVertex3f(-1, -1, 0.5)
+    glVertex3f(1, -1, 0.5)
+
+    glColor(0.155, 0.39, 0.235)
+    glVertex3f(0, 0, 0.5)
+    glVertex3f(-1, 1, 0.5)
+    glVertex3f(-1, -1, 0.5)
+
+    glVertex3f(0, 0, 0.5)
+    glVertex3f(1, 1, 0.5)
+    glVertex3f(1, -1, 0.5)
+
+    #4
+    glColor(0.155, 0.39, 0.235)
+    glVertex3f(1, 2, 0)
+    glVertex3f(-1, 1, 0.5)
+    glVertex3f(-1, 2, 0)
+
+    glVertex3f(1, 2, 0)
+    glVertex3f(1, 1, 0.5)
+    glVertex3f(-1, 1, 0.5)
+
+    glVertex3f(-1, 1, 0.5)
+    glVertex3f(-2, 1, 0)
+    glVertex3f(-2, -1, 0)
+
+    glVertex3f(-1, 1, 0.5)
+    glVertex3f(-2, -1, 0)
+    glVertex3f(-1, -1, 0.5)
+
+    glVertex3f(-1, -1, 0.5)
+    glVertex3f(-1, -2, 0)
+    glVertex3f(1, -2, 0)
+
+    glVertex3f(-1, -1, 0.5)
+    glVertex3f(1, -1, 0.5)
+    glVertex3f(1, -2, 0)
+
+    glVertex3f(1, 1, 0.5)
+    glVertex3f(2, 1, 0)
+    glVertex3f(2, -1, 0)
+
+    glVertex3f(1, 1, 0.5)
+    glVertex3f(2, -1, 0)
+    glVertex3f(1, -1, 0.5)
+
+    #SMALL 4
+    glColor(0.31, 0.78, 0.47)   
+    glVertex3f(1, 2, 0)
+    glVertex3f(1, 1, 0.5)
+    glVertex3f(2, 1, 0)
+
+    glVertex3f(2, -1, 0)
+    glVertex3f(1, -1, 0.5)
+    glVertex3f(1, -2, 0)
+
+    glVertex3f(-1, -2, 0)
+    glVertex3f(-1, -1, 0.5)
+    glVertex3d(-2, -1, 0)
+
+    glVertex3f(-2, 1, 0)
+    glVertex3f(-1, 1, 0.5)
+    glVertex3f(-1, 2, 0)
+
+    glEnd()
+
+def control(event):
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_LEFT:
+            glTranslatef(-0.5, 0, 0)
+        elif event.key == pygame.K_RIGHT:
+            glTranslatef(0.5, 0, 0)
+        elif event.key == pygame.K_UP:
+            glRotatef(90, 10, 0, -10)
+            glTranslatef(0, 0.5, 0)
+        elif event.key == pygame.K_DOWN:
+            glTranslatef(0, -0.5, 0)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+        control(event)
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glRotatef(1, 1, 0, 0)
+    draw_emerald()
+    pygame.display.flip()
+    pygame.time.wait(15)
